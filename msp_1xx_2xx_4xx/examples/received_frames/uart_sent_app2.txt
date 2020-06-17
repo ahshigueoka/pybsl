@@ -1,0 +1,430 @@
+Received starting sequence
+
+--------------------
+Received header
+Payload size: 1
+Checksum bytes: 62E8
+TX version
+Return code: A0
+
+--------------------
+Received header
+Payload size: 1
+Checksum bytes: A364
+Erasing the firmware
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 1F2D
+Writing data block: 
+102440810044B0139246C93224B013F044
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 8947
+Writing data block: 
+1012440C43B0132044B0138C46FF3F343B240
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 6526
+Writing data block: 
+1022440805A5C1F2D0800252C243232D2D3
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 3833
+Writing data block: 
+103244042D243221E143D4044281E431D83
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: D37A
+Writing data block: 
+1042440E73FD23D93FB231D16343D2C322
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 50B6
+Writing data block: 
+10524401E143D4044281E431D83E73FD23D93
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 20F6
+Writing data block: 
+1062440FB231D16343D2D3221E143D404428
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: F3D8
+Writing data block: 
+10724401E431D83E73FD23D93FB231D16343
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 0E0
+Writing data block: 
+1082440D2C322E2D332E2D372E2D3192
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 98C1
+Writing data block: 
+1092440E2D31B28C07A46D43E43B013FC45
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: E2B7
+Writing data block: 
+10A2440C243152434332D018034332C2343
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: A0B
+Writing data block: 
+10B2440D2931524F7235C421424B01384465F42
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: DECE
+Writing data block: 
+10C244014241F83E241F835243F80A80624
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 37F2
+Writing data block: 
+10D2440D2E322F2E080023253CB0131846
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 8321
+Writing data block: 
+10E244023CD2E322C2431524DC3F3432A14
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 852E
+Writing data block: 
+10F24408F0009F0004248C000B013
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 4257
+Writing data block: 
+102450724540181A425C14018B240805A5C1
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 5B14
+Writing data block: 
+10124508F09E469F0A2461324890A246880
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 5350
+Writing data block: 
+1022450AA46C3CC97F4C5F60185F4F9E46
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: EF92
+Writing data block: 
+1032450A9040D94F13A9040D98F223
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: C3AC
+Writing data block: 
+10424507AC23AD085A4018824A5C1B0139646
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: C23A
+Writing data block: 
+10524508F0009F0009248A00033C
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: C227
+Writing data block: 
+10624506A13AA0409A000FA232816101
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: B914
+Writing data block: 
+10724501A14C9C1B4920A43293CCCA3D40
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 8DCD
+Writing data block: 
+1082450C0B01330462C524CE4CDEC91E4C
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 2E84
+Writing data block: 
+1092450808C93A0DC3FC40CCF1220
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: DAA7
+Writing data block: 
+10A2450E9310208E09E469E0A246F246E4D
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: A669
+Writing data block: 
+10B24505E60185E4E9E46AD010CCDCDF
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 7676
+Writing data block: 
+10C24504E1323CB01348461B49201A53A9B
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 3BA7
+Writing data block: 
+10D2450D52B19161011F4C101E4C30E93
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 1BC5
+Writing data block: 
+10E2450220F93924AD010CD43FFFF1F83
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 19C8
+Writing data block: 
+10F2450E73F923F93F72310160C82460D
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 4183
+Writing data block: 
+102460C2460E10248C08241F427AFF4F13
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 21F7
+Writing data block: 
+1012460D2D3DC5101B240DEC0024D2D3224
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 741C
+Writing data block: 
+102246032C2343B240F5A5C1FF3F343212
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 646B
+Writing data block: 
+103246032C2343824CC04824DC841C42CA4
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: F3D2
+Writing data block: 
+10424603241343101CFCE93624AF010
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 8913
+Writing data block: 
+1052460FF4DFFFF1E83FA231014F141F427CFF
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: B68D
+Writing data block: 
+10624604F13B1C01001404B16013C2431D2
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: F464
+Writing data block: 
+1072460F2E0800232013C24C1424D2431524
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 295A
+Writing data block: 
+10824601014C4C1F427EFFC0F343FF3F343
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 3A6B
+Writing data block: 
+10924601C4310110100E000D84500
+Return code: 0
+
+--------------------
+Received header
+Payload size: 12
+Checksum bytes: 4C8C
+Writing data block: 
+10A246098460082400
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: EDC1
+Writing data block: 
+102F3030401C4430406E4630401C4430401C44
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 1AF0
+Writing data block: 
+1012F3030401C4430401C4430401C4430401C44
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 4A17
+Writing data block: 
+1022F3030401C4430401C4430401C4430401C44
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: 57C4
+Writing data block: 
+1032F3030401C4430401C4430401C4430405C46
+Return code: 0
+
+--------------------
+Received header
+Payload size: 20
+Checksum bytes: EBD9
+Writing data block: 
+1042F3030401C4430401C4430401C4430401C44
+Return code: 0
+
+--------------------
+Received header
+Payload size: 12
+Checksum bytes: E5AB
+Writing data block: 
+1052F3030401C4430401C44
+Return code: 0
+
+--------------------
+Received header
+Payload size: 6
+Checksum bytes: 8ED9
+Writing data block: 
+10FEF30244
+Return code: 0
+
+--------------------
+Received header
+Payload size: 6
+Checksum bytes: 8D82
+Writing data block: 
+1004404AF3
+Return code: 0
+
+--------------------
+Received header
+Payload size: 1
+Checksum bytes: 324D
+Jump to application
+Return code: 0
