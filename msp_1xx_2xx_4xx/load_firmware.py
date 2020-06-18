@@ -41,12 +41,10 @@ max_attempts_mspboot = 10;
 print('Opening COM port')
 # Open UART communication
 pchost = bsl_scripter.Host(comport)
-
 # Load firmware
 pchost.invoke_bsl()
-# pchost.load_image(imageFile, showDump = False)
-# pchost.write_image()
-# pchost.jump2app(app_start)
+pchost.mass_erase()
+pchost.jump2app(app_start)
 #
 # Start sequence
 #if write_flag:

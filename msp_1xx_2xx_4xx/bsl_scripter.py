@@ -174,17 +174,43 @@ def checksum_xor(data):
 
 def get_frame(so):
     hdr = int.from_bytes(so.read(), byteorder = 'little')
-    cmd = int.from_bytes(so.read(), byteorder = 'little')
-    l1 = int.from_bytes(so.read(), byteorder = 'little')
-    l2 = int.from_bytes(so.read(), byteorder = 'little')
-    pl = so.read(l1)
-    address = int.from_bytes(pl[0:2], byteorder = 'little')
-    arg1 = int.from_bytes(pl[2], byteorder = 'little')
-    arg2 = int.from_bytes(pl[3], byteorder = 'little')
-    dat  = list(pl[3:end])
-    ckl = int.from_bytes(so.read(), byteorder = 'little')
-    ckh = int.from_bytes(so.read(), byteorder = 'little')
-    return BSLframe(hdr, cmd, l1, address, arg1, arg2, dat, ckl, ckh)
+    print('HDR: ', hex(hdr))
+    if hdr == TX_REQUEST or hdr == BSL_REQUEST or hdr == BSL_HEADER:
+        cmd = int.from_bytes(so.read(), byteorder = 'little')
+        print('CMD: ', hex(cmd))
+        l1 = int.from_bytes(so.read(), byteorder = 'little')
+        print('L1:  ', hex(l1))
+        l2 = int.from_bytes(so.read(), byteorder = 'little')
+        print('L2:  ', hex(l2))
+        pl = so.read(size = l1)
+        print(len(pl))
+        print('PL:  ', hexlify(pl))
+        address = int.from_bytes(pl[0:2], byteorder = 'little')
+        print('ADD: ', hex(address))
+        arg1 = pl[2]
+        print('A1:  ', hex(arg1))
+        arg2 = pl[3]
+        print('A2:  ', hex(arg2))
+        dat  = list(pl[3:])
+        ckl = int.from_bytes(so.read(), byteorder = 'little')
+        print('CKL:  ', hex(ckl))
+        ckh = int.from_bytes(so.read(), byteorder = 'little')
+        print('CKH:  ', hex(ckh))
+        return BSLframe(hdr, cmd, l1, address, arg1, arg2, dat, ckl, ckh)
+    else:
+        return BSLframe(0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+def get_acknowledge(so, NUM_ATTEMPTS = 3):
+    ans = 0x00
+    for j in range(0, NUM_ATTEMPTS):
+        temp = so.read()
+        ans = int.from_bytes(temp, 'little', signed = False)
+        print('Received char:', end = ' ')
+        print(hexlify(temp))
+        if(ans == DATA_ACK or ans == DATA_NAK):
+            return ans
+    print('No acknowledge response')
+    return ans
 
 class BSLframe:
     def __init__(self, hdr, cmd, plsize, address, arg1, arg2, dat, ckl, ckh):
@@ -227,8 +253,6 @@ class Host:
     running a MSPBoot bootloader"""
     def __init__(self, comport):
         """
-
-
         Parameters
         ----------
         comport : string
@@ -241,7 +265,7 @@ class Host:
         """
         self.ptree = []
         self.flextree = []
-        self.so = serial.Serial(comport, 9600, timeout = 10)
+        self.so = serial.Serial(comport, 9600)
 
     def __enter__(self):
         """Required to use the 'with' statement with this class"""
@@ -258,34 +282,51 @@ class Host:
         self.ptree = parse_titxt(imageFile)
         self.rxdata = convert_rxdata(self.ptree, 16, showDump)
 
+    def mass_erase(self):
+        # Request firmware erasure
+        self.so.write(erase_app().to_bytes())
+        # Process acknowledge
+        ans = get_acknowledge(self.so, 3)
+        if ans == DATA_ACK:
+            print('Erasing software')
+            return True
+        elif ans == DATA_NAK:
+            print('Erase request failed')
+            return False
+        else:
+            print('Returned invalid acknowledge character: ', hex(ans))
+            return False
+
     def write_image(self):
-        print('Deleting image at the target')
-        print(hexlify(erase_app().to_bytes()))
-        print('Writing firmware')
+        # Write firmware, frame by frame
+        print('Starting to write firmware')
         for command in (self.rxdata):
-            #self.so.write(command.to_bytes())
-            print(hexlify(command.to_bytes()))
+            # Send frame
+            command_bytearray = command.to_bytes()
+            self.so.write(command_bytearray)
+            # Process acknowledge
+            ans = get_acknowledge(self.so, 3)
+            if ans == DATA_ACK:
+                print('ACK: ', hexlify(command_bytearray))
+            elif ans == DATA_NAK:
+                print('NAK: ', hexlify(command_bytearray))
+            else:
+                print('Returned invalid acknowledge character: ', helify(ans))
 
     def invoke_bsl(self):
         print('Starting BSL')
         print(bsl_request().to_bytes())
         self.so.write(bsl_request().to_bytes())
         print('Waiting for acknowledge')
-        NUM_ATTEMPTS = 10
-        for j in range(0, NUM_ATTEMPTS):
-            temp = self.so.read()
-            ans = int.from_bytes(temp, 'little', signed = False)
-            print('Received char:', end = ' ')
-            print(hexlify(temp))
-            if ans == DATA_ACK:
-                print('Entered BSL mode')
-                return True
-            elif ans == DATA_NAK:
-                print('Failed to enter BSL mode')
-                return False
-        print('No response')
+        ans = get_acknowledge(self.so, 3)
+        if ans == DATA_ACK:
+            print('Entered BSL mode')
+            return True
+        elif ans == DATA_NAK:
+            print('Failed to enter BSL mode')
+            return False
 
     def jump2app(self, addr):
         # Send a jump to app
         print('Starting app')
-        print(hexlify(load_pc(addr).to_bytes()))
+        self.so.write(load_pc(addr).to_bytes())
