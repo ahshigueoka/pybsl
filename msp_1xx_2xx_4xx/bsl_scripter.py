@@ -4,6 +4,7 @@ import serial
 # Data frame header
 TX_REQUEST      = 0x10
 BSL_REQUEST     = 0xB0
+BSL_EXIT        = 0xB1
 BSL_HEADER      = 0x80
 
 # Command codes
@@ -45,6 +46,16 @@ def tx_data_block(addr, numbt):
 
 def bsl_request():
     dtf = BSLframe(BSL_REQUEST, 0, 4, 0x0000, 0x00, 0x00, [], 0x00, 0x00)
+    dtf.update_cksum()
+    return dtf
+
+def bsl_exit():
+    dtf = BSLframe(BSL_EXIT, 0, 4, 0x0000, 0x00, 0x00, [], 0x00, 0x00)
+    dtf.update_cksum()
+    return dtf
+
+def rx_password(pw):
+    dtf = BSLframe(BSL_HEADER, RX_PASSWORD, 24, 0, 0, 0,pw, 0, 0)
     dtf.update_cksum()
     return dtf
 
@@ -174,28 +185,19 @@ def checksum_xor(data):
 
 def get_frame(so):
     hdr = int.from_bytes(so.read(), byteorder = 'little')
-    print('HDR: ', hex(hdr))
+    print('----------------------------------------')
+    print('Received frame')
     if hdr == TX_REQUEST or hdr == BSL_REQUEST or hdr == BSL_HEADER:
         cmd = int.from_bytes(so.read(), byteorder = 'little')
-        print('CMD: ', hex(cmd))
         l1 = int.from_bytes(so.read(), byteorder = 'little')
-        print('L1:  ', hex(l1))
         l2 = int.from_bytes(so.read(), byteorder = 'little')
-        print('L2:  ', hex(l2))
         pl = so.read(size = l1)
-        print(len(pl))
-        print('PL:  ', hexlify(pl))
         address = int.from_bytes(pl[0:2], byteorder = 'little')
-        print('ADD: ', hex(address))
         arg1 = pl[2]
-        print('A1:  ', hex(arg1))
         arg2 = pl[3]
-        print('A2:  ', hex(arg2))
         dat  = list(pl[3:])
         ckl = int.from_bytes(so.read(), byteorder = 'little')
-        print('CKL:  ', hex(ckl))
         ckh = int.from_bytes(so.read(), byteorder = 'little')
-        print('CKH:  ', hex(ckh))
         return BSLframe(hdr, cmd, l1, address, arg1, arg2, dat, ckl, ckh)
     else:
         return BSLframe(0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -315,7 +317,6 @@ class Host:
 
     def invoke_bsl(self):
         print('Starting BSL')
-        print(bsl_request().to_bytes())
         self.so.write(bsl_request().to_bytes())
         print('Waiting for acknowledge')
         ans = get_acknowledge(self.so, 3)
@@ -326,7 +327,19 @@ class Host:
             print('Failed to enter BSL mode')
             return False
 
-    def jump2app(self, addr):
+    def exit_bsl(self):
+        print('Requesting to exit BSL')
+        self.so.write(bsl_exit().to_bytes())
+        print('Waiting for acknowledge')
+        ans = get_acknowledge(self.so, 3)
+        if ans == DATA_ACK:
+            print('Exited BSL mode')
+            return True
+        elif ans == DATA_NAK:
+            print('Failed to exit BSL mode')
+            return False
+
+    def load_pc(self, addr):
         # Send a jump to app
         print('Starting app')
         self.so.write(load_pc(addr).to_bytes())

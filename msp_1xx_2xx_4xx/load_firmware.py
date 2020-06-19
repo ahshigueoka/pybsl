@@ -28,7 +28,7 @@ imageFile = 'examples/app2_new.txt'
 #-----------------------------------------------------------------------------
 # If write_flag ==  True, then write the firmware
 # If write_flag == False, then just load and calculate the checksum
-write_flag  = False
+write_flag  = True
 
 #-----------------------------------------------------------------------------
 # Max number of attempts to start MSPBoot
@@ -41,21 +41,18 @@ max_attempts_mspboot = 10;
 print('Opening COM port')
 # Open UART communication
 pchost = bsl_scripter.Host(comport)
-# Load firmware
-pchost.invoke_bsl()
-pchost.mass_erase()
-pchost.jump2app(app_start)
-#
+# Load firmware from image file
+pchost.load_image('examples/app2_new.txt')
+
 # Start sequence
-#if write_flag:
-#    for attempt in range(0, max_attempts_mspboot):
-#        print("Attempt {} of {} to start MSPBoot at the target device".format(attempt, max_attempts_mspboot))
-#        if pchost.enter_mspboot():
-#            # Write the firmware at the target
-#            pchost.write_image('blink.txt')
-#
-#            # Start executing the target application
-#            pchost.load_pc(app_start)
-#            break
-#        else:
-#            print('Could not communicate with the target MSP430')
+if write_flag:
+    print("Attempting to start BSL at the target device")
+    if pchost.invoke_bsl():
+        # Overwrite the firmware at the target
+        pchost.mass_erase()
+        pchost.write_image()
+        # Start executing the target application
+        pchost.load_pc(app_start)
+        pchost.exit_bsl()
+    else:
+        print('Could not communicate with the target MSP430')
